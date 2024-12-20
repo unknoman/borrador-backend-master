@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "title": "Laptop Gamer",
+    "description": "Laptop potente para videojuegos de alta calidad.",
+    "code": "LP001",
+    "price": 1500,
+    "status": true,
+    "stock": 10,
+    "category": "Electronics",
+    "thumbnails": [
+      "images/laptop1.png",
+      "images/laptop2.png"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Smartphone",
+    "description": "Teléfono inteligente de última generación con cámara avanzada.",
+    "code": "SP002",
+    "price": 800,
+    "status": true,
+    "stock": 25,
+    "category": "Electronics",
+    "thumbnails": [
+      "images/smartphone1.png",
+      "images/smartphone2.png"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Auriculares Bluetooth",
+    "description": "Auriculares inalámbricos con cancelación de ruido.",
+    "code": "AU003",
+    "price": 120,
+    "status": true,
+    "stock": 50,
+    "category": "Accessories",
+    "thumbnails": [
+      "images/headphones1.png",
+      "images/headphones2.png"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Compu Gamer",
+    "price": 1800,
+    "stock": 10
+  },
+  {
+    "id": 5,
+    "title": "alma",
+    "price": 12,
+    "stock": 2
+  },
+  {
+    "title": "asdasd",
+    "price": 2222,
+    "id": 10
+  },
+  {
+    "title": "asdasddas",
+    "price": 2222,
+    "id": 11
+  },
+  {
+    "title": "adsdas",
+    "price": 2222,
+    "id": 12
+  }
+]

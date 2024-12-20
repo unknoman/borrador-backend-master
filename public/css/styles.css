@@ -1,0 +1,115 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #dfd6d6;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: #444;
+}
+
+/* Product List Styles */
+#product-list {
+  list-style: none;
+  margin: 20px auto;
+  padding: 0;
+  max-width: 600px;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.product-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.product-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #28a745;
+  margin-left: 10px;
+}
+
+.product-stock {
+  font-size: 14px;
+  color: #888;
+  margin-left: 10px;
+}
+
+/* Button Styles */
+button.delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+button.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Form Styles */
+form#product-form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form#product-form input {
+  width: calc(33% - 10px);
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+form#product-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+form#product-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+form#product-form button:hover {
+  background-color: #0056b3;
+}
+
+  
