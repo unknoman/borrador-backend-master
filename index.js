@@ -9,7 +9,9 @@ const fs = require('fs');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+//--- models
 
+const Product = require('./models/Product'); // Asegúrate de que la ruta sea correcta
 // Configuración del motor de plantillas Handlebars
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
@@ -63,8 +65,7 @@ io.on('connection', (socket) => {
 
     //db
 
-      // Enviar productos iniciales al nuevo cliente
-      socket.on('getProductsDB', async () => {
+    socket.on('getProductsDB', async () => {
         try {
             const products = await Product.find();
             socket.emit('updateProductsDB', products); // Enviar lista de productos al cliente
@@ -73,16 +74,26 @@ io.on('connection', (socket) => {
         }
     });
 
-    // Agregar producto
     socket.on('addProductDB', async (product) => {
         try {
+            const lastProduct = await Product.findOne().sort({ id: -1 });
+            const nextId = lastProduct ? lastProduct.id + 1 : 1;
+
+            product.id = nextId;
+
             const newProduct = new Product(product);
+    
+            console.log("producto agregado: " + newProduct.title);
             const savedProduct = await newProduct.save();
-            io.emit('updateProductsDB', await Product.find()); // Emitir productos actualizados a todos los clientes
+            console.log(savedProduct);
+    
+            io.emit('updateProductsDB', await Product.find());
+    
         } catch (err) {
             socket.emit('error', 'Error al agregar productoDB');
         }
     });
+    
 
     // Actualizar producto
     socket.on('updateProductDB', async (product) => {
@@ -127,12 +138,9 @@ app.use('/', viewsRouter);
 const mongoose = require('mongoose');
 
 // Conectar a MongoDB
-mongoose.connect('mongodb://localhost:27017/miBaseDeDatos', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log("Conectado a MongoDB"))
-.catch((err) => console.log("Error de conexión:", err));
+mongoose.connect('mongodb://localhost:27017/miBaseDeDatos')
+  .then(() => console.log("Conectado a MongoDB"))
+  .catch((err) => console.log("Error de conexión:", err));
 
 
 
