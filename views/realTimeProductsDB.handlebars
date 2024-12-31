@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos en Tiempo Real</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>Productos en Tiempo Real</h1>
+    <ul id="product-list"></ul>
+    <form id="add-product-form">
+        <input type="text" id="product-name" placeholder="Nombre del producto" required>
+        <input type="number" id="product-price" placeholder="Precio del producto" required>
+        <button type="submit">Agregar Producto</button>
+    </form>
+    <script>
+        const socket = io();
+
+        let editingProductId = null; // Declarar la variable para almacenar el ID del producto en edición
+
+        const productList = document.getElementById('product-list');
+        const form = document.getElementById('add-product-form');
+        const nameInput = document.getElementById('product-name');
+        const priceInput = document.getElementById('product-price');
+
+        // Actualizar la lista de productos
+        socket.on('updateProductsDB', (products) => {
+            productList.innerHTML = products.map(product => `
+                <li>
+                    ${product.title} - $${product.price} 
+                    <button onclick="editProduct('${product._id}', '${product.title}', ${product.price})">Editar</button>
+                    <button onclick="deleteProduct('${product._id}')">Eliminar</button>
+                </li>
+            `).join('');
+        });
+
+        // Enviar un nuevo producto o actualizar uno existente
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const product = {
+                title: nameInput.value,
+                price: parseFloat(priceInput.value),
+            };
+
+            if (editingProductId) {
+                // Actualizar producto
+                product._id = editingProductId;
+                socket.emit('updateProductDB', product);
+                editingProductId = null; // Restablecer ID de edición
+            } else {
+                // Agregar producto
+                socket.emit('addProductDB', product);
+            }
+
+            nameInput.value = '';
+            priceInput.value = '';
+        });
+
+        // Editar un producto
+        function editProduct(id, title, price) {
+            editingProductId = id; // Establecer el ID del producto en edición
+            nameInput.value = title;
+            priceInput.value = price;
+        }
+
+        // Eliminar un producto
+        function deleteProduct(productId) {
+            socket.emit('deleteProductDB', productId);
+        }
+
+        // Solicitar productos al cargar la página
+        socket.emit('getProductsDB');
+    </script>
+</body>
+</html>
